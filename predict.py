@@ -2,6 +2,7 @@ import tensorflow as tf
 from models import ResModel
 from image_utils import create_tensorflow_image_loader
 from image_utils import create_yahoo_image_loader
+from utils import standardize
 from PIL import Image
 import numpy as np
 import os
@@ -49,19 +50,12 @@ def imageToTensor(inputs, input_type=1):
     return input_tensor
 
 
-def standardize(img):
-    mean = np.mean(img)
-    std = np.std(img)
-    img = (img - mean) / std
-    return img
-
-
 def load_image_with_PIL(infilename):
     img = Image.open(infilename)
     img = img.resize((64, 64))
     img.load()
     data = np.asarray(img, dtype=np.float32)
-    data = standardize(data)
+    data = standardize(img=data)
     return tf.convert_to_tensor(value=[data] * 128, dtype=tf.float32)
 
 

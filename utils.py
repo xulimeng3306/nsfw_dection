@@ -34,3 +34,10 @@ def fully_connected(name, num_outputs):
             get_weights(name, "weights")),
         bias_initializer=tf.constant_initializer(
             get_weights(name, "biases")))
+
+
+def standardize(img):
+    mean = np.mean(img)
+    std = np.std(img)
+    img = (img - mean) / std
+    return img
