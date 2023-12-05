@@ -91,7 +91,7 @@ def load_base64_tensor(_input):
     import tensorflow as tf
 
     def decode_and_process(base64):
-        _bytes = tf.decode_base64(base64)
+        _bytes = tf.compat.v1.decode_base64(base64)
         _image = __tf_jpeg_process(_bytes)
 
         return _image

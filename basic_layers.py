@@ -123,3 +123,21 @@ class Identity_block_layer(layers.Layer):
         x = self.bnc(self.convc(x))
         x = tf.add(x, inputs)
         return tf.nn.relu(x)
+
+
+def get_block_arrs(filter_depths: list, num_blocks: list, kernel_size: int, block_strides: list):
+    if len(num_blocks) != len(block_strides):
+        return ValueError("num_blocks and block_strides must be same length")
+    blocks = []
+    for idx, value in enumerate(num_blocks):
+        sub_blocks = []
+        sub_blocks.append(
+            BasicBlock(stage=idx, block=0, filterdepths=filter_depths,
+                       kernel_size=kernel_size, stride=block_strides[idx])
+        )
+        for i in range(1, value):
+            sub_blocks.append(
+                Identity_block_layer(stage=idx, block=i, filter_depths=filter_depths, kernel_size=kernel_size))
+        blocks.append(sub_blocks)
+        filter_depths = [x * 2 for x in filter_depths]
+    return blocks
