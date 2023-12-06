@@ -97,6 +97,32 @@ def predict_two_labels():
     print('count: %d' % count)
 
 
+def predict_two_labels2_with_pb_model():
+    IMAGE_DIR = r'./data/sfw'
+    input_type = 1
+    image_loader = "yahoo"
+    fn_load_image = load_image(input_type, image_loader)
+
+    # 载入模型
+    model = tf.keras.models.load_model(
+        "models/Wed Dec  6 16:22:06 2023", custom_objects=None, compile=True)
+    # 获取模型的签名函数
+    # infer = model.signatures["serving_default"]
+    print(model)
+    count = 0
+    # all_imgs = []
+    for i in findAllFile(IMAGE_DIR):
+        image = fn_load_image(i)
+        imageTensor = imageToTensor(image, input_type)
+        result = model.predict(imageTensor)[0]
+        sfw, nsfw = result[0], result[1]
+        if sfw >= 0.8:
+            print("%s sfw=%.8f nsfw=%.8f" %
+                  (i, sfw, nsfw))
+            count += 1
+    print('count: %d' % count)
+
+
 def predict_five_labels():
     IMAGE_DIR = r'./data/nsfw'
 
@@ -126,4 +152,4 @@ def predict_five_labels():
 
 
 if __name__ == '__main__':
-    predict_five_labels()
+    predict_two_labels2_with_pb_model()

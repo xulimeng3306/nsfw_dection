@@ -41,3 +41,21 @@ def standardize(img):
     std = np.std(img)
     img = (img - mean) / std
     return img
+
+
+# class NSFWFinetuneLoss(tf.keras.losses.Loss):
+#     # 可以传入一些超参数，用以动态构建模型
+#     # __init__()方法在创建模型对象时被调用
+#     def __init__(self, weight_decay=2e-4):
+#         # 调用父类__init__()方法
+#         super(NSFWFinetuneLoss, self).__init__()
+
+#         self.weight_decay = weight_decay
+
+#     def call(self, y_true, y_pred):
+#         cross_entropy = tf.keras.losses.sparse_categorical_crossentropy(
+#             y_pred=y_pred, y_true=y_true, from_logits=True)
+        
+#         l2 = self.weight_decay * tf.add_n([tf.nn.l2_loss(tf.cast)])
+        
+#         return output

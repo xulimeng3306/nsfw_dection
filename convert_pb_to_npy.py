@@ -6,7 +6,6 @@ from predict import load_image
 saved_model_path = './models/1547856517/'
 
 # 加载 SavedModel
-tf.compat.v1.enable_resource_variables()
 model = tf.saved_model.load(saved_model_path)
 print("=======================", model.signatures)
 model = tf.function(model.signatures["predict"])

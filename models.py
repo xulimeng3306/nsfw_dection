@@ -25,9 +25,8 @@ class ResModel(models.Model):
 
     def call(self, inputs, is_training=None):
 
-        # print("before pad : ", self.input_tensor.shape)
         x = tf.pad(inputs, [[0, 0], [3, 3], [3, 3], [0, 0]], 'CONSTANT')
-        print("input=", inputs, "x=", x.shape)
+        # print("-----------------input=", inputs, "x=", x.shape)
         # print("pad", x.shape)
         x = self.conv2(x)
         x = self.bn(x)

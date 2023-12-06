@@ -33,13 +33,13 @@ def download_image(url, save_path, save_path2):
 # download_image(image_url, save_directory)
 
 if __name__ == '__main__':
-    file_path = "./违规.csv"
-    save_path = "../nsfw"
+    file_path = "./正常.csv"
+    save_path = "../ht_heads/0"
     all_image_path = "../all_images"
     if not os.path.exists(save_path):
         os.mkdir(save_path)
     if not os.path.exists(all_image_path):
         os.mkdir(all_image_path)
     data = pd.read_csv(file_path)
-    for i in tqdm(data['url'].to_numpy()[:100]):
+    for i in tqdm(data['url'].to_numpy()):
         download_image(i, save_path, all_image_path)

@@ -1,3 +1,7 @@
 data/all_images/*
 data/nsfw/*
 data/sfw/*
+data/data*
+data/ht_heads
+data/tfrecords/*
+models/Wed*
